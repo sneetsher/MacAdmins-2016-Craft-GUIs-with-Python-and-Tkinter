@@ -1,6 +1,9 @@
 import Tkinter as tk
 import ttk
-import AppKit
+try:
+    import AppKit
+except ImportError, e:
+    AppKit = None
 
 
 class LabelApp(tk.Frame):
@@ -290,6 +293,7 @@ if __name__ == '__main__':
     top10 = tk.Toplevel(root)
     Voltron(top10)
 
-    AppKit.NSApplication.sharedApplication().activateIgnoringOtherApps_(True)
+    if AppKit is not None:
+        AppKit.NSApplication.sharedApplication().activateIgnoringOtherApps_(True)
 
     root.mainloop()

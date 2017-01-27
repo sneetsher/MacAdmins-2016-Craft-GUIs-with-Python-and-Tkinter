@@ -1,5 +1,8 @@
 import Tkinter as tk
-import AppKit
+try:
+    import AppKit
+except ImportError, e:
+    AppKit = None
 
 
 class App(tk.Frame):
@@ -39,7 +42,8 @@ class App(tk.Frame):
 if __name__ == '__main__':
     root = tk.Tk()
     app = App(root)
-    AppKit.NSApplication.sharedApplication().activateIgnoringOtherApps_(True)
+    if AppKit is not None:
+        AppKit.NSApplication.sharedApplication().activateIgnoringOtherApps_(True)
     app.mainloop()
 
 """

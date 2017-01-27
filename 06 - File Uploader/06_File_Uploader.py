@@ -1,8 +1,11 @@
 import Tkinter as tk
-import AppKit
 import tkFileDialog
 import ttk
 import time
+try:
+    import AppKit
+except ImportError, e:
+    AppKit = None
 
 
 class App(tk.Frame):
@@ -107,12 +110,14 @@ class LoadingFrame(tk.Frame):
 
 
 if __name__ == '__main__':
-    info = AppKit.NSBundle.mainBundle().infoDictionary()
-    info['LSUIElement'] = True
+    if AppKit is not None:
+        info = AppKit.NSBundle.mainBundle().infoDictionary()
+        info['LSUIElement'] = True
 
     root = tk.Tk()
     app = App(root)
-    AppKit.NSApplication.sharedApplication().activateIgnoringOtherApps_(True)
+    if AppKit is not None:
+        AppKit.NSApplication.sharedApplication().activateIgnoringOtherApps_(True)
     app.mainloop()
 
 """
